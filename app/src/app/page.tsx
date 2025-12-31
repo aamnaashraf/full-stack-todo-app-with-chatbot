@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import HowItWorks from './components/Howitworks';
 import JoinThousands from './components/JoinThousands';
 import { Twitter, Instagram, Mail, Github } from 'lucide-react';
-import FloatingChatButton from '@/components/FloatingChatButton';
+import FloatingChatButton from '../components/FloatingChatButton';
 
 export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false);
