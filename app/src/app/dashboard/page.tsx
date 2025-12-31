@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/lib/auth'
-import { useTodos } from '@/context/TodoContext'
-import TodoList from '@/components/todos/TodoList'
+import { useAuth } from '../../lib/auth'
+import { useTodos } from '../../context/TodoContext'
+import TodoList from '../../components/todos/TodoList'
 import { MoonIcon, SunIcon, PlusIcon, RefreshCw } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import FloatingChatButton from '../../components/FloatingChatButton'
 import AddTodoModal from '../../components/todos/AddTodoModal'
-import { createTodo } from '@/lib/api'
-import { useToast } from '@/lib/toast'
+import { createTodo } from '../../lib/api'
+import { useToast } from '../../lib/toast'
+
 
 // Define the Todo interface to match the API response
 interface Todo {
