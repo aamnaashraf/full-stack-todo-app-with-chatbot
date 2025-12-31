@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { useTodos } from '@/context/TodoContext'
+import { useTodos } from '../../context/TodoContext'
 import TodoCard from './TodoCard'
 import AddTodoModal from './AddTodoModal'
-import { createTodo, updateTodo, deleteTodo } from '@/lib/api'
-import { useToast } from '@/lib/toast'
+import { createTodo, updateTodo, deleteTodo } from '../../lib/api'
+import { useToast } from '../../lib/toast'
 import { Search, Filter, Calendar, Clock, CheckCircle2, AlertCircle, XCircle } from 'lucide-react'
 
 interface Todo {
