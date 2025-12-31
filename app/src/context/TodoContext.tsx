@@ -1,8 +1,8 @@
 'use client'
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { useAuth } from '@/lib/auth';
-import { getTodos } from '@/lib/api';
+import { useAuth } from '../lib/auth';
+import { getTodos } from '../lib/api';
 
 // Define the Todo interface to match the API response
 interface Todo {
