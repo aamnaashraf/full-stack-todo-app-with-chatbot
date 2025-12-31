@@ -1,5 +1,9 @@
 {
-   "scripts": { "vercel-build": "npm run prepare && next build" } ,
+  "name": "full-stack-todo",
+  "version": "1.0.0",
+  "scripts": {
+    "vercel-build": "cd app && npm install && npm run build"
+  },
   "dependencies": {
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.26",
