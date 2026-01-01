@@ -760,13 +760,6 @@ def on_startup():
         print(f"Warning: Could not create database tables: {e}")
         print("Make sure your database schema is properly set up.")
 
-# Debug middleware: log incoming Origin header for CORS troubleshooting
-@app.middleware("http")
-async def _log_origin(request, call_next):
-    origin = request.headers.get("origin")
-    print("DEBUG: Incoming Origin ->", origin)
-    return await call_next(request)
-
 # Add CORS middleware with wildcard pattern for Vercel deployments
 # This allows all preview deployments from the frontend project
 app.add_middleware(
@@ -779,10 +772,18 @@ app.add_middleware(
     ],
     allow_origin_regex=r"https://full-stack-todo-frontend.*\.vercel\.app",
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allow_headers=["*"],
     expose_headers=["Authorization"],
 )
+
+# Debug middleware: log incoming Origin header for CORS troubleshooting
+@app.middleware("http")
+async def _log_origin(request, call_next):
+    origin = request.headers.get("origin")
+    print("DEBUG: Incoming Origin ->", origin)
+    return await call_next(request)
+
 # Auth router
 auth_router = APIRouter()
 
