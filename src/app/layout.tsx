@@ -1,0 +1,48 @@
+import '../styles/globals.css'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { AuthProvider } from '../lib/auth'
+import { ToastProvider } from '../lib/toast'
+import { TodoProvider } from '../context/TodoContext'
+import Navigation from './components/Navigation'
+import { ThemeProvider } from './components/theme-provider'
+
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: 'Todo App',
+  description: 'A secure todo application with user authentication',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <body className={`
+        ${inter.className}
+        bg-teal-50
+        dark:from-indigo-900 dark:via-purple-900 dark:to-gray-900
+        text-gray-900 dark:text-white
+        min-h-screen w-full min-w-0
+        transition-colors duration-300
+      `}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ToastProvider>
+            <AuthProvider>
+              <TodoProvider>
+                <Navigation />
+                <main className="container mx-auto px-4 py-8 min-h-[calc(100vh-4rem)]">
+                  {children}
+                </main>
+              </TodoProvider>
+            </AuthProvider>
+          </ToastProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
