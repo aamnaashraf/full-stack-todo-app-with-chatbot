@@ -760,6 +760,13 @@ def on_startup():
         print(f"Warning: Could not create database tables: {e}")
         print("Make sure your database schema is properly set up.")
 
+# Debug middleware: log incoming Origin header for CORS troubleshooting
+@app.middleware("http")
+async def _log_origin(request, call_next):
+    origin = request.headers.get("origin")
+    print("DEBUG: Incoming Origin ->", origin)
+    return await call_next(request)
+
 # Add CORS middleware with wildcard pattern for Vercel deployments
 # This allows all preview deployments from the frontend project
 app.add_middleware(
