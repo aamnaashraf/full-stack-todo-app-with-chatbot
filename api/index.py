@@ -787,10 +787,10 @@ async def _log_origin(request, call_next):
 # Auth router
 auth_router = APIRouter()
 
-@auth_router.post("/api/auth/register", response_model=UserPublic)
+@auth_router.post("/api/auth/register")
 def register(user_create: UserCreate, session: Session = Depends(get_session)):
     """
-    Register a new user
+    Register a new user and return access token
     """
     # Check if user already exists
     existing_user_statement = select(User).where(User.email == user_create.email)
@@ -811,12 +811,22 @@ def register(user_create: UserCreate, session: Session = Depends(get_session)):
             detail=f"Registration failed: {str(e)}"
         )
 
-    # Return public user data (without password hash)
-    return UserPublic(
-        id=user.id,
-        email=user.email,
-        created_at=user.created_at
+    # Create access token for the newly registered user
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.email, "user_id": str(user.id)},
+        expires_delta=access_token_expires
     )
+
+    # Return token and user data (matching login response format)
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user": {
+            "id": str(user.id),
+            "email": user.email
+        }
+    }
 
 @auth_router.post("/api/auth/login")
 def login(user_credentials: UserLogin, session: Session = Depends(get_session)):
