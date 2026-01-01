@@ -764,7 +764,10 @@ def on_startup():
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://full-stack-todo-app-with-chatbot-fr.vercel.app"
+        "https://full-stack-todo-app-with-chatbot-fr.vercel.app",
+        "https://full-stack-todo-frontend-10jvxoibj.vercel.app",
+        "http://localhost:3000",  # For local development
+        "http://localhost:3001"   # Alternative local port
     ],
     allow_credentials=True,
     allow_methods=["*"],
