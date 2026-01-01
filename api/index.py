@@ -760,15 +760,17 @@ def on_startup():
         print(f"Warning: Could not create database tables: {e}")
         print("Make sure your database schema is properly set up.")
 
-# Add CORS middleware
+# Add CORS middleware with wildcard pattern for Vercel deployments
+# This allows all preview deployments from the frontend project
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
         "https://full-stack-todo-app-with-chatbot-fr.vercel.app",
-        "https://full-stack-todo-frontend-10jvxoibj.vercel.app",
-        "http://localhost:3000",  # For local development
-        "http://localhost:3001"   # Alternative local port
+        "https://full-stack-todo-frontend-iota.vercel.app",
     ],
+    allow_origin_regex=r"https://full-stack-todo-frontend.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
