@@ -763,14 +763,14 @@ def on_startup():
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=[
+        "https://full-stack-todo-app-with-chatbot-fr.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    # Expose the authorization header to allow frontend to access JWT
-    expose_headers=["Access-Control-Allow-Origin"]
+    expose_headers=["Authorization"],
 )
-
 # Auth router
 auth_router = APIRouter()
 
